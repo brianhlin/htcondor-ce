@@ -1,5 +1,5 @@
 Name: htcondor-ce
-Version: 1.5
+Version: 1.5.1
 Release: 1%{?dist}
 Summary: A framework to run HTCondor as a CE
 
@@ -249,6 +249,9 @@ fi
 %{_bindir}/condor_ce_ping
 
 %changelog
+* Thu Sep 4 2014 Brian Lin <blin@cs.wisc.edu> - 1.5.1-1
+- Fix idle jobs getting held even if they have a matching route
+
 * Mon Aug 25 2014 Brian Lin <blin@cs.wisc.edu> - 1.5-1
 - Add workaround to fix client tool segfault with mismatched ClassAd versions
   between HTCondor CE and Condor (SOFTWARE-1583)
