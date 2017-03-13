@@ -39,9 +39,6 @@ Conflicts: condor = 8.5.4
 Conflicts: condor = 8.5.5
 Conflicts: condor = 8.5.6
 
-# This ought to pull in the HTCondor-CE specific version of the blahp
-Requires: blahp
-
 # Init script doesn't function without `which` (which is no longer part of RHEL7 base).
 Requires: which
 
@@ -320,16 +317,7 @@ fi
 %config(noreplace) %{_sysconfdir}/condor-ce/config.d/01-ce-auth.conf
 %config(noreplace) %{_sysconfdir}/condor-ce/config.d/01-ce-router.conf
 %config(noreplace) %{_sysconfdir}/condor-ce/config.d/03-ce-shared-port.conf
-%config(noreplace) %{_sysconfdir}/condor-ce/config.d/03-managed-fork.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/condor-ce
-
-%{_datadir}/condor-ce/config.d/01-ce-auth-defaults.conf
-%{_datadir}/condor-ce/config.d/01-ce-info-services-defaults.conf
-%{_datadir}/condor-ce/config.d/01-ce-router-defaults.conf
-%{_datadir}/condor-ce/config.d/03-ce-shared-port-defaults.conf
-%{_datadir}/condor-ce/config.d/03-managed-fork-defaults.conf
-%{_datadir}/condor-ce/config.d/03-gratia-cleanup.conf
-%{_datadir}/condor-ce/config.d/05-ce-health-defaults.conf
 
 %{_datadir}/condor-ce/osg-wrapper
 
