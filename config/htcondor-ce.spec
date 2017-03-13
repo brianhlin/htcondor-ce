@@ -1,5 +1,7 @@
 # Have gitrev be the short hash or branch name if doing a prerelease build
 #define gitrev osg
+%define osg 1
+%define dist .osg.el%{?rhel}
 
 Name: htcondor-ce
 Version: 2.1.4
