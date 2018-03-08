@@ -35,9 +35,12 @@ function run_integration_tests {
     service condor-ce start
     service condor start
 
+    # wait until the schedd is ready before submitting a job
     timeout 30 bash -c 'until (condor_ce_q); do sleep 0.5; done' > /dev/null 2>&1
+    condor_ce_info_status
 
-    service condor-ce status
+    # condor_ce_trace as user
+
     test_exit=$?
     set -e
 }
