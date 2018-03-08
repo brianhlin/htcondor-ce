@@ -24,8 +24,8 @@ function run_integration_tests {
     host_dn=$(python -c "import cagen; print cagen.certificate_info('/etc/grid-security/hostcert.pem')[0]")
     host_dn=${host_dn//\/\\/} # escape all forward slashes
     entry="GSI \"${host_dn}\" $(hostname --long)@daemon.opensciencegrid.org\n"
-    sed -v
-    sed -i "1s/^/${entry}/" /etc/condor-ce/condor_mapfile
+    sed --version
+    sed -i "1|${entry}" /etc/condor-ce/condor_mapfile
     cat /etc/condor-ce/condor_mapfile
 
     service start condor-ce
