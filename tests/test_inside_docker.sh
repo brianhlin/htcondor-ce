@@ -1,5 +1,36 @@
 #!/bin/bash -xe
 
+function run_osg_tests {
+    # Source repo version
+    git clone https://github.com/opensciencegrid/osg-test.git
+    pushd osg-test
+    git rev-parse HEAD
+    make install
+    popd
+
+    # Ok, do actual testing
+    set +e # don't exit immediately if osg-test fails
+    echo "------------ OSG Test --------------"
+    osg-test -vad --hostcert --no-cleanup
+    test_exit=$?
+    set -e
+}
+
+function debug_info {
+    # Some simple debug files for failures.
+    openssl x509 -in /etc/grid-security/hostcert.pem -noout -text
+    echo "------------ CE Logs --------------"
+    cat /var/log/condor-ce/MasterLog
+    cat /var/log/condor-ce/CollectorLog
+    cat /var/log/condor-ce/SchedLog
+    cat /var/log/condor-ce/JobRouterLog
+    echo "------------ HTCondor Logs --------------"
+    cat /var/log/condor/MasterLog
+    cat /var/log/condor/CollectorLog
+    cat /var/log/condor/SchedLog
+    condor_config_val -dump
+}
+
 OS_VERSION=$1
 BUILD_ENV=$2
 
@@ -49,21 +80,16 @@ pushd htcondor-ce/tests/
 python run_tests.py
 popd
 
-# Source repo version
-git clone https://github.com/opensciencegrid/osg-test.git
-pushd osg-test
-git rev-parse HEAD
-make install
-popd
+# HTCondor really, really wants a domain name.  Fake one.
+sed /etc/hosts -e "s/`hostname`/`hostname`.unl.edu `hostname`/" > /etc/hosts.new
+/bin/cp -f /etc/hosts.new /etc/hosts
+
+# Install tooling for creating test certificates
 git clone https://github.com/opensciencegrid/osg-ca-generator.git
 pushd osg-ca-generator
 git rev-parse HEAD
 make install
 popd
-
-# HTCondor really, really wants a domain name.  Fake one.
-sed /etc/hosts -e "s/`hostname`/`hostname`.unl.edu `hostname`/" > /etc/hosts.new
-/bin/cp -f /etc/hosts.new /etc/hosts
 
 # Bind on the right interface and skip hostname checks.
 cat << EOF > /etc/condor/config.d/99-local.conf
@@ -78,29 +104,11 @@ cp /etc/condor/config.d/99-local.conf /etc/condor-ce/config.d/99-local.conf
 # Reduce the trace timeouts
 export _condor_CONDOR_CE_TRACE_ATTEMPTS=60
 
-if [ "$BUILD_ENV" != 'osg' ]; then
-    exit
+if [ "$BUILD_ENV" == 'osg' ]; then
+    run_osg_tests
 fi
 
-# Ok, do actual testing
-set +e # don't exit immediately if osg-test fails
-echo "------------ OSG Test --------------"
-osg-test -vad --hostcert --no-cleanup
-test_exit=$?
-set -e
-
-# Some simple debug files for failures.
-openssl x509 -in /etc/grid-security/hostcert.pem -noout -text
-echo "------------ CE Logs --------------"
-cat /var/log/condor-ce/MasterLog
-cat /var/log/condor-ce/CollectorLog
-cat /var/log/condor-ce/SchedLog
-cat /var/log/condor-ce/JobRouterLog
-echo "------------ HTCondor Logs --------------"
-cat /var/log/condor/MasterLog
-cat /var/log/condor/CollectorLog
-cat /var/log/condor/SchedLog
-condor_config_val -dump
+debug_info
 
 # Verify preun/postun in the spec file
 yum remove -y 'htcondor-ce*'
