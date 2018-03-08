@@ -27,16 +27,19 @@ function run_integration_tests {
     host_dn=${host_dn//\//\\/} # escape all forward slashes
     entry="GSI \"${host_dn}\" $(hostname --long)@daemon.opensciencegrid.org"
     ce_mapfile='/etc/condor-ce/condor_mapfile'
-    ls -lh $ce_mapfile
     tmp_mapfile=$(mktemp)
     echo $entry | cat - $ce_mapfile > $tmp_mapfile && mv $tmp_mapfile $ce_mapfile
-    cat $ce_mapfile
 
-    ls -lh /etc/init.d/
-
+    echo "------------ Integration Test --------------"
+    set +e
     service condor-ce start
     service condor start
+
+    timeout 30 bash -c 'until (condor_ce_q); do sleep 0.5; done' > /dev/null 2>&1
+
     service condor-ce status
+    test_exit=$?
+    set -e
 }
 
 function debug_info {
