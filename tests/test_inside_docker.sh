@@ -25,6 +25,10 @@ function run_integration_tests {
     entry="GSI \"${host_dn}\" $(hostname)@daemon.opensciencegrid.org\n"
     sed -i "1s/^/$entry/" /etc/condor-ce/condor_mapfile
     cat /etc/condor-ce/condor_mapfile
+
+    service start condor-ce
+    service start condor
+    service status condor-ce
 }
 
 function debug_info {
