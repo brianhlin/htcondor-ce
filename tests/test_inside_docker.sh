@@ -34,9 +34,9 @@ function run_integration_tests {
 
     ls -lh /etc/init.d/
 
-    service start condor-ce
-    service start condor
-    service status condor-ce
+    service condor-ce start
+    service condor start
+    service condor-ce status
 }
 
 function debug_info {
