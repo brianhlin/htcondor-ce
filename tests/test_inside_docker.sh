@@ -19,14 +19,16 @@ function run_osg_tests {
 function run_integration_tests {
     useradd -m cetest
 
-    # create host/user certificates and add the line to the condor_mapfile
+    # create host/user certificates
     osg-ca-generator --host --user cetest --pass cetest
+
+    # add the host subject DN to the top of the condor_mapfile
     host_dn=$(python -c "import cagen; print cagen.certificate_info('/etc/grid-security/hostcert.pem')[0]")
     host_dn=${host_dn//\/\\/} # escape all forward slashes
-    entry="GSI \"${host_dn}\" $(hostname --long)@daemon.opensciencegrid.org\n"
-    sed --version
-    sed -i "1s/^/${entry}/" /etc/condor-ce/condor_mapfile
-    cat /etc/condor-ce/condor_mapfile
+    entry="GSI \"${host_dn}\" $(hostname --long)@daemon.opensciencegrid.org"
+    ce_mapfile='/etc/condor-ce/condor_mapfile '
+    tmp_mapfile=$(mktemp)
+    echo $entry | cat - $ce_mapfile > $tmp_mapfile && mv $tmp_mapfile $ce_mapfile
 
     service start condor-ce
     service start condor
