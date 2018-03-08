@@ -35,6 +35,13 @@ Requires: blahp
 # Init script doesn't function without `which` (which is no longer part of RHEL7 base).
 Requires: which
 
+# Use the Globus-lcmaps plugin architecture for authz
+%ifarch %{ix86}
+Requires: liblcas_lcmaps_gt4_mapping.so.0
+%else
+Requires: liblcas_lcmaps_gt4_mapping.so.0()(64bit)
+%endif
+
 # Require the htcondor-ce-client subpackage.  The client provides necessary
 # configuration defaults and scripts for the CE itself.
 Requires: %{name}-client = %{version}-%{release}
