@@ -1,6 +1,7 @@
 #!/bin/bash -xe
 
 OS_VERSION=$1
+BUILD_ENV=$2
 
 ls -l /home
 
@@ -15,15 +16,17 @@ rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-${OS_VERSION}
 echo "exclude=mirror.beyondhosting.net" >> /etc/yum/pluginconf.d/fastestmirror.conf
 
 yum -y install yum-plugin-priorities
-rpm -Uvh https://repo.grid.iu.edu/osg/3.4/osg-3.4-el${OS_VERSION}-release-latest.rpm
+rpm -Uvh https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el${OS_VERSION}-release-latest.rpm
 yum -y install rpm-build gcc gcc-c++ boost-devel cmake git tar gzip make autotools
 
 # Prepare the RPM environment
 mkdir -p /tmp/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
-cat >> /etc/rpm/macros.dist << EOF
+if [ "$BUILD_ENV" == 'osg' ]; then
+   cat >> /etc/rpm/macros.dist << EOF
 %dist .osg.el${OS_VERSION}
 %osg 1
 EOF
+fi
 
 cp htcondor-ce/rpm/htcondor-ce.spec /tmp/rpmbuild/SPECS
 package_version=`grep Version htcondor-ce/rpm/htcondor-ce.spec | awk '{print $2}'`
@@ -74,6 +77,10 @@ cp /etc/condor/config.d/99-local.conf /etc/condor-ce/config.d/99-local.conf
 
 # Reduce the trace timeouts
 export _condor_CONDOR_CE_TRACE_ATTEMPTS=60
+
+if [ "$BUILD_ENV" != 'osg' ]; then
+    exit
+fi
 
 # Ok, do actual testing
 set +e # don't exit immediately if osg-test fails
