@@ -59,6 +59,7 @@ function debug_info {
     cat /var/log/condor-ce/CollectorLog
     cat /var/log/condor-ce/SchedLog
     cat /var/log/condor-ce/JobRouterLog
+    condor_ce_config_val -dump
     echo "------------ HTCondor Logs --------------"
     cat /var/log/condor/MasterLog
     cat /var/log/condor/CollectorLog
