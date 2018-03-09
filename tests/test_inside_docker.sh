@@ -32,7 +32,7 @@ function run_integration_tests {
     echo $entry | cat - $ce_mapfile > $tmp_mapfile && mv $tmp_mapfile $ce_mapfile
     chmod 644 $ce_mapfile
 
-    yum install -y sudo voms-clients-cpp # run tests as non-root user
+    yum install -y sudo # run tests as non-root user
 
     echo "------------ Integration Test --------------"
     set +e
@@ -128,6 +128,8 @@ yum localinstall -y $RPM_LOCATION/htcondor-ce-${package_version}* \
     $RPM_LOCATION/htcondor-ce-condor-* \
     $RPM_LOCATION/htcondor-ce-view-* \
     $extra_repos
+
+yum install -y voms-clients-cpp # ensure that our test users can generate proxies
 
 # Run unit tests
 pushd htcondor-ce/tests/
