@@ -107,7 +107,8 @@ EOF
 cp htcondor-ce/rpm/htcondor-ce.spec /tmp/rpmbuild/SPECS
 package_version=`grep Version htcondor-ce/rpm/htcondor-ce.spec | awk '{print $2}'`
 pushd htcondor-ce
-git archive --format=tar --prefix=htcondor-ce-${package_version}/ HEAD  | gzip >/tmp/rpmbuild/SOURCES/htcondor-ce-${package_version}.tar.gz
+git archive --format=tar --prefix=htcondor-ce-${package_version}/ HEAD | \
+    gzip > /tmp/rpmbuild/SOURCES/htcondor-ce-${package_version}.tar.gz
 popd
 
 # Build the RPM
@@ -122,9 +123,11 @@ if [ "$BUILD_ENV" == 'osg' ]; then
     extra_repos='--enablerepo=osg-development'
 fi
 
-ls -l /etc/yum.repos.d/ # debug systemd, libstdc++, etc repo failures
-
-yum localinstall -y $RPM_LOCATION/htcondor-ce-${package_version}* $RPM_LOCATION/htcondor-ce-client-* $RPM_LOCATION/htcondor-ce-condor-* $RPM_LOCATION/htcondor-ce-view-* $extra_repos
+yum localinstall -y $RPM_LOCATION/htcondor-ce-${package_version}* \
+    $RPM_LOCATION/htcondor-ce-client-* \
+    $RPM_LOCATION/htcondor-ce-condor-* \
+    $RPM_LOCATION/htcondor-ce-view-* \
+    $extra_repos
 
 # Run unit tests
 pushd htcondor-ce/tests/
