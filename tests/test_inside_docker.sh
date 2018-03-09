@@ -46,7 +46,7 @@ function run_integration_tests {
 
     # submit test job as a normal user
     sudo -u $test_user /bin/sh -c "echo $test_user | voms-proxy-init -pwstdin"
-    sudo -u $test_user condor_ce_trace -d $(hostname --long)
+    sudo -u $test_user condor_ce_trace -d $(hostname)
     set -e
     test_exit=$?
 }
