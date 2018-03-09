@@ -41,7 +41,7 @@ function run_integration_tests {
     condor_ce_status -any
     condor_ce_q
 
-    # generate the user proxy
+    # submit test job as a normal user
     sudo --user $test_user /bin/sh -c "echo $test_user | voms-proxy-init -pwstdin"
     sudo --user $test_user condor_ce_trace -d $(hostname --long)
     test_exit=$?
