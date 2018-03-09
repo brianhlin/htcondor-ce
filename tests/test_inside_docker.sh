@@ -32,7 +32,7 @@ function run_integration_tests {
     echo $entry | cat - $ce_mapfile > $tmp_mapfile && mv $tmp_mapfile $ce_mapfile
     chmod 644 $ce_mapfile
 
-    yum install -y sudo # run tests as non-root user
+    yum install -y sudo voms-clients-cpp # run tests as non-root user
 
     echo "------------ Integration Test --------------"
     set +e
