@@ -90,7 +90,7 @@ if [ "$BUILD_ENV" == 'osg' ]; then
 else
     pushd /etc/yum.repos.d
     yum install -y wget
-    wget http://htcondor.org/yum/repo.d/htcondor-stable-rhel7.repo
+    wget http://htcondor.org/yum/repo.d/htcondor-stable-rhel${OS_VERSION}.repo
     wget http://htcondor.org/yum/RPM-GPG-KEY-HTCondor
     rpm --import RPM-GPG-KEY-HTCondor
     popd
