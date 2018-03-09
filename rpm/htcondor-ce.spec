@@ -29,8 +29,10 @@ BuildRequires: cmake
 # because of https://jira.opensciencegrid.org/browse/SOFTWARE-2816
 Requires:  condor >= 8.6.5
 
-# This ought to pull in the HTCondor-CE specific version of the blahp
+# UW builds of HTCondor include the blahp
+%if ! 0%{?uw_build}
 Requires: blahp
+%endif
 
 # Init script doesn't function without `which` (which is no longer part of RHEL7 base).
 Requires: which
