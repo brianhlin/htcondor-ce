@@ -104,10 +104,7 @@ Requires: %{name} = %{version}-%{release}
 %package pbs
 Group: Applications/System
 Summary: Default routes for submission to PBS
-
 Requires: %{name} = %{version}-%{release}
-Requires: /usr/bin/grid-proxy-init
-Requires: /usr/bin/voms-proxy-init
 
 %description pbs
 %{summary}
@@ -115,10 +112,7 @@ Requires: /usr/bin/voms-proxy-init
 %package lsf
 Group: Applications/System
 Summary: Default routes for submission to LSF
-
 Requires: %{name} = %{version}-%{release}
-Requires: /usr/bin/grid-proxy-init
-Requires: /usr/bin/voms-proxy-init
 
 %description lsf
 %{summary}
@@ -126,10 +120,8 @@ Requires: /usr/bin/voms-proxy-init
 %package sge
 Group: Applications/System
 Summary: Default routes for submission to SGE
-
 Requires: %{name} = %{version}-%{release}
-Requires: /usr/bin/grid-proxy-init
-Requires: /usr/bin/voms-proxy-init
+
 
 %description sge
 %{summary}
@@ -139,19 +131,13 @@ Group: Applications/System
 Summary: Default routes for submission to Slurm
 
 Requires: %{name} = %{version}-%{release}
-Requires: /usr/bin/grid-proxy-init
-Requires: /usr/bin/voms-proxy-init
-
 %description slurm
 %{summary}
 
 %package bosco
 Group: Applications/System
 Summary: Default routes for submission to BOSCO
-
 Requires: %{name} = %{version}-%{release}
-Requires: /usr/bin/grid-proxy-init
-Requires: /usr/bin/voms-proxy-init
 
 %description bosco
 %{summary}
@@ -163,8 +149,6 @@ Summary: Client-side tools for submission to HTCondor-CE
 # Note the strange requirements (base package is not required!
 # Point is to be able to submit jobs without installing the server.
 Requires: condor
-Requires: /usr/bin/grid-proxy-init
-Requires: /usr/bin/voms-proxy-init
 %if ! 0%{?uw_build}
 Requires: grid-certificates >= 7
 %endif
