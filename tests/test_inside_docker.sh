@@ -32,6 +32,7 @@ function run_integration_tests {
     echo $entry | cat - $ce_mapfile > $tmp_mapfile && mv $tmp_mapfile $ce_mapfile
 
     echo "------------ Integration Test --------------"
+    set +e
     service condor-ce start
     service condor start
 
@@ -44,6 +45,7 @@ function run_integration_tests {
     # submit test job as a normal user
     sudo --user $test_user /bin/sh -c "echo $test_user | voms-proxy-init -pwstdin"
     sudo --user $test_user condor_ce_trace -d $(hostname --long)
+    set -e
     test_exit=$?
 }
 
