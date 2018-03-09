@@ -122,6 +122,9 @@ RPM_LOCATION=/tmp/rpmbuild/RPMS/noarch
 if [ "$BUILD_ENV" == 'osg' ]; then
     extra_repos='--enablerepo=osg-development'
 fi
+
+ls -l /etc/yum.repos.d/ # debug systemd, libstdc++, etc repo failures
+
 yum localinstall -y $RPM_LOCATION/htcondor-ce-${package_version}* $RPM_LOCATION/htcondor-ce-client-* $RPM_LOCATION/htcondor-ce-condor-* $RPM_LOCATION/htcondor-ce-view-* $extra_repos
 
 # Run unit tests
