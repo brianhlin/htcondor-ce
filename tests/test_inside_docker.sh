@@ -89,6 +89,7 @@ if [ "$BUILD_ENV" == 'osg' ]; then
     rpm -Uvh https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el${OS_VERSION}-release-latest.rpm
 else
     pushd /etc/yum.repos.d
+    yum install -y wget
     wget http://htcondor.org/yum/repo.d/htcondor-stable-rhel7.repo
     wget http://htcondor.org/yum/RPM-GPG-KEY-HTCondor
     rpm --import RPM-GPG-KEY-HTCondor
