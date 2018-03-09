@@ -98,12 +98,11 @@ fi
 
 # Prepare the RPM environment
 mkdir -p /tmp/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
-if [ "$BUILD_ENV" == 'osg' ]; then
-   cat >> /etc/rpm/macros.dist << EOF
-%dist .osg.el${OS_VERSION}
-%osg 1
+
+cat >> /etc/rpm/macros.dist << EOF
+%dist .${BUILD_ENV}.el${OS_VERSION}
+%${BUILD_ENV} 1
 EOF
-fi
 
 cp htcondor-ce/rpm/htcondor-ce.spec /tmp/rpmbuild/SPECS
 package_version=`grep Version htcondor-ce/rpm/htcondor-ce.spec | awk '{print $2}'`
