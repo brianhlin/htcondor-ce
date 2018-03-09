@@ -43,7 +43,6 @@ function run_integration_tests {
     timeout 30 bash -c 'until (condor_ce_q); do sleep 0.5; done' > /dev/null 2>&1
 
     condor_ce_status -any
-    condor_ce_q
 
     # submit test job as a normal user
     sudo -u $test_user /bin/sh -c "echo $test_user | voms-proxy-init -pwstdin"
