@@ -165,7 +165,9 @@ Summary: Client-side tools for submission to HTCondor-CE
 Requires: condor
 Requires: /usr/bin/grid-proxy-init
 Requires: /usr/bin/voms-proxy-init
+%if ! 0%{?uw_build}
 Requires: grid-certificates >= 7
+%endif
 
 Requires: condor-python
 
