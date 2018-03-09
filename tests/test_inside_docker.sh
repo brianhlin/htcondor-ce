@@ -45,7 +45,8 @@ function run_integration_tests {
     condor_ce_status -any
 
     # submit test job as a normal user
-    sudo -u $test_user /bin/sh -c "echo $test_user | voms-proxy-init -pwstdin"
+    # TODO: Change this to voms-proxy-init to test VOMS attr mapping
+    sudo -u $test_user /bin/sh -c "echo $test_user | grid-proxy-init -pwstdin"
     sudo -u $test_user condor_ce_ping -verbose READ WRITE
     sudo -u $test_user condor_ce_trace -d $(hostname)
     set -e
@@ -129,7 +130,8 @@ yum localinstall -y $RPM_LOCATION/htcondor-ce-${package_version}* \
     $RPM_LOCATION/htcondor-ce-view-* \
     $extra_repos
 
-yum install -y voms-clients-cpp # ensure that our test users can generate proxies
+# ensure that our test users can generate proxies
+yum install -y grid-proxy-utils
 
 # Run unit tests
 pushd htcondor-ce/tests/
