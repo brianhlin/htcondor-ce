@@ -119,7 +119,10 @@ rpmbuild --define '_topdir /tmp/rpmbuild' -ba /tmp/rpmbuild/SPECS/htcondor-ce.sp
 mkdir -p /var/run/lock
 
 RPM_LOCATION=/tmp/rpmbuild/RPMS/noarch
-yum localinstall -y $RPM_LOCATION/htcondor-ce-${package_version}* $RPM_LOCATION/htcondor-ce-client-* $RPM_LOCATION/htcondor-ce-condor-* $RPM_LOCATION/htcondor-ce-view-* --enablerepo=osg-development
+if [ "$BUILD_ENV" == 'osg' ]; then
+    extra_repos='--enablerepo=osg-development'
+fi
+yum localinstall -y $RPM_LOCATION/htcondor-ce-${package_version}* $RPM_LOCATION/htcondor-ce-client-* $RPM_LOCATION/htcondor-ce-condor-* $RPM_LOCATION/htcondor-ce-view-* $extra_repos
 
 # Run unit tests
 pushd htcondor-ce/tests/
