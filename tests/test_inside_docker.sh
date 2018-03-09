@@ -20,7 +20,8 @@ function run_integration_tests {
     useradd -m cetest
 
     # create host/user certificates
-    osg-ca-generator --host --user cetest --pass cetest
+    test_user=cetest
+    osg-ca-generator --host --user $test_user --pass $test_user
 
     # add the host subject DN to the top of the condor_mapfile
     host_dn=$(python -c "import cagen; print cagen.certificate_info('/etc/grid-security/hostcert.pem')[0]")
@@ -31,18 +32,19 @@ function run_integration_tests {
     echo $entry | cat - $ce_mapfile > $tmp_mapfile && mv $tmp_mapfile $ce_mapfile
 
     echo "------------ Integration Test --------------"
-    set +e
     service condor-ce start
     service condor start
 
     # wait until the schedd is ready before submitting a job
     timeout 30 bash -c 'until (condor_ce_q); do sleep 0.5; done' > /dev/null 2>&1
-    condor_ce_info_status
 
-    # condor_ce_trace as user
+    condor_ce_status -any
+    condor_ce_q
 
+    # generate the user proxy
+    sudo --user $test_user /bin/sh -c "echo $test_user | voms-proxy-init -pwstdin"
+    sudo --user $test_user condor_ce_trace -d $(hostname --long)
     test_exit=$?
-    set -e
 }
 
 function debug_info {
