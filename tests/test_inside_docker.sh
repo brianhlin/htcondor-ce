@@ -31,6 +31,9 @@ function run_integration_tests {
     tmp_mapfile=$(mktemp)
     echo $entry | cat - $ce_mapfile > $tmp_mapfile && mv $tmp_mapfile $ce_mapfile
 
+    ls -l /etc/condor-ce
+    cat $ce_mapfile
+
     yum install -y sudo # run tests as non-root user
 
     echo "------------ Integration Test --------------"
