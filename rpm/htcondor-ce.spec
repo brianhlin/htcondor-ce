@@ -66,7 +66,7 @@ Requires: /usr/bin/unshare
 %description
 %{summary}
 
-%if ! 0%{?osg}
+%if ! 0%{?osg} && ! 0%{?uw_build}
 %package bdii
 Group: Applications/Internet
 Summary:  GLUE 2.0 infoprovider and CE config for non-OSG sites.
@@ -213,7 +213,7 @@ install -m 0755 -d -p $RPM_BUILD_ROOT/%{_localstatedir}/lock/condor-ce
 install -m 1777 -d -p $RPM_BUILD_ROOT/%{_localstatedir}/lock/condor-ce/user
 install -m 1777 -d -p $RPM_BUILD_ROOT/%{_localstatedir}/lib/gratia/condorce_data
 
-%if 0%{?osg}
+%if 0%{?osg} || 0%{?uw_build}
 rm -rf $RPM_BUILD_ROOT%{_datadir}/condor-ce/htcondor-ce-provider
 rm -f $RPM_BUILD_ROOT%{_datadir}/condor-ce/config.d/06-ce-bdii-defaults.conf
 rm -f $RPM_BUILD_ROOT%{_sysconfdir}/condor-ce/config.d/06-ce-bdii.conf
@@ -320,7 +320,7 @@ fi
 %attr(-,condor,condor) %dir %{_localstatedir}/lock/condor-ce
 %attr(1777,condor,condor) %dir %{_localstatedir}/lock/condor-ce/user
 
-%if ! 0%{?osg}
+%if ! 0%{?osg} && ! 0%{?uw_build}
 %files bdii
 %attr(0755, ldap, ldap) %{_localstatedir}/lib/bdii/gip/provider/htcondor-ce-provider
 
