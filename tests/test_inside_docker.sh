@@ -166,7 +166,6 @@ popd
 
 # Bind on the right interface and skip hostname checks.
 cat << EOF > /etc/condor/config.d/99-local.conf
-BIND_ALL_INTERFACES = true
 GSI_SKIP_HOST_CHECK=true
 ALL_DEBUG=\$(ALL_DEBUG) D_FULLDEBUG D_CAT
 SCHEDD_INTERVAL=1
