@@ -39,6 +39,7 @@ TZ=GMT condor_history -const "$CONSTR" \
  -format "\"userFQAN=%s\" " x509UserProxyFirstFQAN \
  -format "\"ceID=${CE_ID}\" " EMPTY \
  -format "\"jobID=%v_${CE_HOST}\" " RoutedFromJobId \
- -format "\"lrmsID=%v_${BATCH_HOST}\" " clusterId \
+ -format "\"lrmsID=%v." ClusterId \
+ -format "%v_${BATCH_HOST}\" " ProcId \
  -format "\"localUser=%s\"\n"  Owner  > $OUTPUT_FILE
 
