@@ -335,6 +335,11 @@ To make this information available, perform the following instructions on your s
 
 1. Configure BDII static information by modifying `/etc/condor-ce/config.d/99-ce-bdii.conf`
 
+1. On each HTCondor-CE host, also install the HTCondor-CE BDII package:
+
+        :::console
+        root@host # yum install htcondor-ce-bdii
+
 Next Steps
 ----------
 
