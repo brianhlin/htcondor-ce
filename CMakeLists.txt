@@ -93,10 +93,10 @@ install(FILES
   DESTINATION ${PYTHON_SITELIB}/htcondorce)
 
 install(FILES
-  config/condor_config
-  config/condor_mapfile
-  config/condor_mapfile.central_collector
-  config/condor_mapfile.osg
+  config/client/condor_config
+  config/client/condor_mapfile
+  config/central-collector/condor_mapfile.central_collector
+  config/client/condor_mapfile.osg
   DESTINATION ${SYSCONF_INSTALL_DIR}/condor-ce)
 
 install(FILES
@@ -108,40 +108,40 @@ install(FILES
   config/metrics.d/00-example-metrics.conf
   DESTINATION ${SYSCONF_INSTALL_DIR}/condor-ce/metrics.d)
 install(FILES
-  config/01-ce-auth.conf
-  config/01-ce-collector.conf
-  ${CMAKE_CURRENT_BINARY_DIR}/config/01-ce-router.conf
-  config/01-pilot-env.conf
-  config/02-ce-condor.conf
-  config/02-ce-pbs.conf
-  config/02-ce-lsf.conf
-  config/02-ce-sge.conf
-  config/02-ce-slurm.conf
-  config/02-ce-bosco.conf
-  config/03-managed-fork.conf
-  config/05-ce-view.conf
-  config/05-ce-health.conf
+  config/htcondor-ce/01-ce-auth.conf
+  config/central-collector/01-ce-collector.conf
+  ${CMAKE_CURRENT_BINARY_DIR}/config/htcondor-ce/01-ce-router.conf
+  config/htcondor-ce/01-pilot-env.conf
+  config/htcondor-ce/02-ce-condor.conf
+  config/htcondor-ce/02-ce-pbs.conf
+  config/htcondor-ce/02-ce-lsf.conf
+  config/htcondor-ce/02-ce-sge.conf
+  config/htcondor-ce/02-ce-slurm.conf
+  config/htcondor-ce/02-ce-bosco.conf
+  config/htcondor-ce/03-managed-fork.conf
+  config/view/05-ce-view.conf
+  config/view/05-ce-health.conf
   contrib/apelscripts/50-ce-apel.conf
   DESTINATION ${SYSCONF_INSTALL_DIR}/condor-ce/config.d)
 install(FILES
-  config/01-ce-collector-defaults.conf
-  config/01-ce-collector-requirements.conf
-  config/01-ce-audit-payloads-defaults.conf
-  config/01-ce-auth-defaults.conf
-  config/01-common-auth-defaults.conf
-  config/01-common-collector-defaults.conf
-  ${CMAKE_CURRENT_BINARY_DIR}/config/01-ce-router-defaults.conf
-  config/01-pilot-env-defaults.conf
-  config/02-ce-condor-defaults.conf
-  config/02-ce-pbs-defaults.conf
-  config/02-ce-lsf-defaults.conf
-  config/02-ce-sge-defaults.conf
-  config/02-ce-slurm-defaults.conf
-  config/02-ce-bosco-defaults.conf
-  config/03-managed-fork-defaults.conf
-  config/05-ce-collector-auth.conf
-  config/05-ce-view-defaults.conf
-  config/05-ce-health-defaults.conf
+  config/central-collector/01-ce-collector-defaults.conf
+  config/central-collector/01-ce-collector-requirements.conf
+  config/central-collector/01-ce-audit-payloads-defaults.conf
+  config/central-collector/01-ce-auth-defaults.conf
+  config/client/01-common-auth-defaults.conf
+  config/client/01-common-collector-defaults.conf
+  ${CMAKE_CURRENT_BINARY_DIR}/config/htcondor-ce/01-ce-router-defaults.conf
+  config/htcondor-ce/01-pilot-env-defaults.conf
+  config/htcondor-ce/02-ce-condor-defaults.conf
+  config/htcondor-ce/02-ce-pbs-defaults.conf
+  config/htcondor-ce/02-ce-lsf-defaults.conf
+  config/htcondor-ce/02-ce-sge-defaults.conf
+  config/htcondor-ce/02-ce-slurm-defaults.conf
+  config/htcondor-ce/02-ce-bosco-defaults.conf
+  config/htcondor-ce/03-managed-fork-defaults.conf
+  config/central-collector/05-ce-collector-auth.conf
+  config/view/05-ce-view-defaults.conf
+  config/htcondor-ce/05-ce-health-defaults.conf
   contrib/apelscripts/50-ce-apel-defaults.conf
   DESTINATION ${SHARE_INSTALL_PREFIX}/condor-ce/config.d)
 install(FILES
