@@ -437,7 +437,9 @@ fi
 %{_unitdir}/condor-ce-collector.service
 %{_tmpfilesdir}/condor-ce-collector.conf
 
+%config %{_datadir}/condor-ce/condor_mapfile.central_collector
 %config %{_datadir}/condor-ce/config.d/01-ce-collector-requirements.conf
+%config %{_datadir}/condor-ce/config.d/05-ce-collector-auth.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/condor-ce-collector
 %config(noreplace) %{_sysconfdir}/condor-ce/config.d/01-ce-collector.conf
 
