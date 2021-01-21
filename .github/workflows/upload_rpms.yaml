@@ -1,14 +1,10 @@
 name: Build and upload HTCondor-CE RPMs
 on:
-  release:
-    # there seems to be contention between 'published' vs 'created' here
-    # 'published' occurs with a GitHub release
-    types: [published]
+  push: [reenable-ci-xfer]
 
 jobs:
   build-rpms-and-upload:
     runs-on: ubuntu-latest
-    if: startsWith(github.repository, 'htcondor/')
     strategy:
       matrix:
         dver: [7, 8]
