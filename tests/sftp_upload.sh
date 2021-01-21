@@ -46,7 +46,7 @@ __END__
 
 function sftp_to_chtc {
     local ret=0
-    local remote_dir=/var/tmp/travis/$repo_owner/$project
+    local remote_dir=/var/tmp/ci/$repo_owner/$project
     if [[ -n ${GITHUB_REF-} ]]; then
         # .../htcondor-ce-v2.3.4
         remote_dir=${remote_dir}-$(tr / _ <<<"$GITHUB_REF")
