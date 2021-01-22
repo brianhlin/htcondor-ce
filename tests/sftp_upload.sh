@@ -54,8 +54,8 @@ function sftp_to_chtc {
     set +x
     script=$(mktemp -t build_rpms.$$.XXXXXX)
     cat >>"$script" <<__END__
--MKDIR /var/tmp/ci
--MKDIR /var/tmp/ci/$repo_owner
+-MKDIR /var/tmp/ci_deploy
+-MKDIR /var/tmp/ci_deploy/$repo_owner
 -MKDIR $remote_dir
 CD $remote_dir
 __END__
