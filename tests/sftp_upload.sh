@@ -67,6 +67,7 @@ __END__
 
     cat "$script"
 
+    ssh -vvv "$upload_server"  # debugging
     sftp -b "$script" "$upload_server"; ret=$?
 
     return $ret
