@@ -67,7 +67,7 @@ __END__
 
     ssh -vvv "$upload_server" ls  # debugging
     echo "done with SSH"
-    sftp -b "$script" "$upload_server"; ret=$?
+    sftp -b "$script" -vvv "$upload_server"; ret=$?
 
     return $ret
 }
