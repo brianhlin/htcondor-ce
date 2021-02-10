@@ -1,7 +1,7 @@
 name: Build and upload HTCondor-CE RPMs
 on:
   push:
-    branches: [reenable-ci-xfer]
+    branches: [trimmed-reenable-ci-xfer]
 
 jobs:
   build-rpms-and-upload:
