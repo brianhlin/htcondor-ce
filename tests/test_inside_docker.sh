@@ -83,6 +83,10 @@ git rev-parse HEAD
 make install PYTHON=/usr/bin/python3
 popd
 
+cat <<EOF > /etc/condor-ce/config.d/99-local.conf
+SCHEDD_DEBUG = $(SCHEDD_DEBUG) D_CAT D_ALWAYS:2 D_SECURITY:2
+EOF
+
 # Bind on the right interface and skip hostname checks.
 cat << EOF > /etc/condor/config.d/99-local.conf
 BIND_ALL_INTERFACES = true
