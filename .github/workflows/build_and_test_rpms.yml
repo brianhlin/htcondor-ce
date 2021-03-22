@@ -66,7 +66,6 @@ jobs:
                  openssl x509 -in /etc/grid-security/hostcert.pem -noout -text
 
       - name: HTCondor-CE configuration details
-        if: failure() && steps.integration-tests.outcome == 'failure'
         run: |
           docker exec $GITHUB_SHA \
                  condor_ce_config_val -dump
