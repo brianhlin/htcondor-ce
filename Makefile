@@ -99,6 +99,12 @@ CE_CONFIG_FILES := \
 	config/01-ce-auth.conf \
 	config/01-ce-router.conf \
 	config/01-pilot-env.conf \
+	config/02-ce-bosco.conf \
+	config/02-ce-condor.conf \
+	config/02-ce-lsf.conf \
+	config/02-ce-pbs.conf \
+	config/02-ce-sge.conf \
+	config/02-ce-slurm.conf \
 	config/03-managed-fork.conf
 
 CE_DEFAULT_CONFIG_FILES := \
@@ -106,7 +112,13 @@ CE_DEFAULT_CONFIG_FILES := \
         config/01-ce-auth-defaults.conf \
         config/01-ce-router-defaults.conf \
         config/01-pilot-env-defaults.conf \
-        config/03-managed-fork-defaults.conf \
+	config/02-ce-bosco-defaults.conf \
+	config/02-ce-condor-defaults.conf \
+	config/02-ce-lsf-defaults.conf \
+	config/02-ce-pbs-defaults.conf \
+	config/02-ce-sge-defaults.conf \
+	config/02-ce-slurm-defaults.conf \
+	config/03-managed-fork-defaults.conf \
         config/05-ce-health-defaults.conf
 
 # ------------------------------------------------------------------------------
