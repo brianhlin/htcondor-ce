@@ -191,7 +191,7 @@ PYTHON_FILES := \
 
 # ------------------------------------------------------------------------------
 
-.PHONY: _default _view client entrypoint collector install check
+.PHONY: _default _mkdirs _view client entrypoint collector install check
 
 _default:
 	@echo "There is no default target; choose one of the following:"
@@ -201,7 +201,33 @@ _default:
 	@echo "make install DESTDIR=path	-- install all files to path"
 	@echo "make check			-- use pylint to check for errors"
 
-_view:
+# The EL7 version of 'install' doesn't create the dir specified by
+# --target-directory when specifying -D so we have to do it ourselves
+_mkdirs:
+	@echo ""
+	@echo "Installing HTCondor-CE directories"
+	@echo "==================================="
+	@echo ""
+
+	mkdir -p $(DESTDIR)/$(INSTALL_BIN_DIR)
+	mkdir -p $(DESTDIR)/$(INSTALL_SHARE_DIR)/condor-ce/{ceview-plugins,config.d,plugins,templates}
+	mkdir -p $(DESTDIR)/$(INSTALL_PYTHON_DIR)/htcondorce/static
+	mkdir -p $(DESTDIR)/$(INSTALL_WSGI_DIR)/htcondor-ce/
+
+	mkdir -p $(DESTDIR)/$(INSTALL_LIB_DIR)/systemd/system
+	mkdir -p $(DESTDIR)/$(INSTALL_LIB_DIR)/tmpfiles.d
+
+	mkdir -p $(DESTDIR)/$(INSTALL_STATE_DIR)/lib/condor-ce/{execute,spool}
+	mkdir -p $(DESTDIR)/$(INSTALL_STATE_DIR)/lib/condor-ce/spool/ceview/{metrics,vos}
+	mkdir -p $(DESTDIR)/$(INSTALL_STATE_DIR)/lib/gratia/condorce_data  # TODO: Move this folder ownership to the osg-ce packaging
+	mkdir -p $(DESTDIR)/$(INSTALL_STATE_DIR)/{lock,log}/condor-ce/user
+	mkdir -p $(DESTDIR)/$(INSTALL_STATE_DIR)/run/condor-ce/
+
+	mkdir -p $(DESTDIR)/$(INSTALL_SYSCONF_DIR)/condor-ce/{config.d,metrics.d,passwords.d,webapp.tokens.d}
+	mkdir -p $(DESTDIR)/$(INSTALL_SYSCONF_DIR)/httpd/conf.d/
+	mkdir -p $(DESTDIR)/$(INSTALL_SYSCONF_DIR)/sysconfig
+
+_view: _mkdirs
 	@echo ""
 	@echo "Installing HTCondor-CE View files"
 	@echo "================================="
@@ -222,7 +248,7 @@ _view:
 # /etc/condor-ce/config.d/05-ce-view-table.conf  
 # 	config/05-ce-view-table-defaults.conf
 
-client:
+client: _mkdirs
 	@echo ""
 	@echo "Installing HTCondor-CE client files"
 	@echo "==================================="
