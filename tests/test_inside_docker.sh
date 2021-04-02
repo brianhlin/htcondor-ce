@@ -2,8 +2,9 @@
 
 function run_osg_tests {
     # Source repo version
-    git clone -q https://github.com/opensciencegrid/osg-test.git
+    git clone -q https://github.com/brianhlin/osg-test.git
     pushd osg-test
+    git checkout new-condor-mapfile-syntax
     git rev-parse HEAD
     make install
     popd
