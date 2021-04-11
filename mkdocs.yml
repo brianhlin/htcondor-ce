@@ -57,4 +57,5 @@ markdown_extensions:
       guess_lang: False
   - toc:
       permalink: True
+  - pymdownx.tabbed
   - pymdownx.superfences
