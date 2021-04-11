@@ -18,7 +18,12 @@ nav:
   - 'Architecture': 'architecture.md'
 - HTCondor-CE 5:
   - Installation: 'v5/installation/htcondor-ce.md'
-  - Batch System Integration: 'v5/batch-system-integration.md'
+  - Configuration:
+    - Job Router:
+      - Overview: 'v5/configuration/job-router-overview.md'
+      - Writing Job Routes: 'v5/configuration/writing-job-routes.md'
+      - For HTCondor Batch Systems: 'v5/configuration/htcondor-routes.md'
+      - For Non-HTCondor Batch Systems: 'v5/configuration/non-htcondor-routes.md'
   - Verification: 'v5/verification.md'
   - Troubleshooting: 'v5/troubleshooting/troubleshooting.md'
   - Central Grid Operations:
