@@ -1,11 +1,5 @@
 name: Deploy static MkDocs pages
-on:
-  push:
-    branches:
-      - 'V5-branch'
-    paths:
-      - 'mkdocs.yml'
-      - 'docs/**'
+on: [push]
 
 jobs:
   deploy-mkdocs:
@@ -15,7 +9,6 @@ jobs:
         with:
           fetch-depth: 0
       - name: Deploy MkDocs pages
-        if: startsWith(github.repository, 'htcondor/')
         uses: docker://squidfunk/mkdocs-material:7.1.0
         with:
           args: >-
