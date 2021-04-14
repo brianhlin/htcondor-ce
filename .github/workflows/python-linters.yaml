@@ -1,6 +1,14 @@
 name: Run Python linters
 
-on: [push, pull_request]
+on:
+  push:
+    paths-ignore:
+      - 'mkdocs.yml'
+      - 'docs/**'
+  pull_request:
+    paths-ignore:
+      - 'mkdocs.yml'
+      - 'docs/**'
 
 jobs:
   python-files:
