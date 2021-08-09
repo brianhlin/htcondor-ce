@@ -9,6 +9,14 @@ jobs:
       matrix:
         dver: [7, 8]
         target_env: [osg, uw_build]
+        osg_repo: [3.5-upcoming, 3.6, 3.6-upcoming]
+        exclude:
+          - target_env: uw_build
+            osg_repo: 3.5-upcoming
+          - target_env: uw_build
+            osg_repo: 3.6
+          - target_env: uw_build
+            osg_repo: 3.6-upcoming
     steps:
       - uses: actions/checkout@v2
         with:
@@ -34,14 +42,15 @@ jobs:
                  /bin/bash -xc \
                    "/htcondor-ce/tests/build_rpms.sh \
                      ${{ matrix.dver }} \
-                     ${{ matrix.target_env}}"
+                     ${{ matrix.target_env }} \
+                     ${{ matrix.osg_repo }}"
 
       - name: Install EL${{ matrix.dver }} RPMs (${{ matrix.target_env }})
         run: |
           docker exec $GITHUB_SHA \
                  /bin/bash -xc \
                    "/htcondor-ce/tests/install_rpms.sh \
-                     ${{ matrix.target_env}}"
+                     ${{ matrix.osg_repo}}"
 
       - name: Run unit tests
         run: |

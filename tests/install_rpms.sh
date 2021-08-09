@@ -2,7 +2,7 @@
 
 set -ex
 
-BUILD_ENV=$1
+OSG_REPO=$1
 
 # After building the RPM, try to install it
 # Fix the lock file error on EL7.  /var/lock is a symlink to /var/run/lock
@@ -15,7 +15,7 @@ useradd -r -g condor -d /var/lib/condor -s /sbin/nologin \
         -u 64 -c "Owner of HTCondor Daemons" condor
 
 RPM_LOCATION=/tmp/rpmbuild/RPMS/noarch
-[[ $BUILD_ENV == osg ]] && extra_repos='--enablerepo=osg-upcoming-development'
+[[ $OSG_REPO =~ ^3\.[5,6]\-upcoming$ ]] && extra_repos='--enablerepo=osg-upcoming'
 
 package_version=`grep Version htcondor-ce/rpm/htcondor-ce.spec | awk '{print $2}'`
 yum localinstall -y $RPM_LOCATION/htcondor-ce-${package_version}* \

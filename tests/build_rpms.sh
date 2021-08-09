@@ -8,6 +8,7 @@ set -exu
 
 OS_VERSION=$1
 BUILD_ENV=$2
+OSG_SERIES=${3%-upcoming}
 
 if  [[ $OS_VERSION == 7 ]]; then
     YUM_PKG_NAME="yum-plugin-priorities"
@@ -58,7 +59,7 @@ yum -y install \
     rrdtool-devel
 
 if [[ $BUILD_ENV == osg ]]; then
-    yum install -y https://repo.opensciencegrid.org/osg/3.5/osg-3.5-el${OS_VERSION}-release-latest.rpm
+    yum install -y https://repo.opensciencegrid.org/osg/$OSG_SERIES/osg-$OSG_SERIES-el${OS_VERSION}-release-latest.rpm
 else
     # This is currently tracking the 9.0 stable release.
     # For the stable release series the version number is required.
