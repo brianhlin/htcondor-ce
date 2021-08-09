@@ -9,13 +9,24 @@ jobs:
       matrix:
         dver: [7, 8]
         target_env: [osg, uw_build]
-        osg_repo: [3.5-upcoming, 3.6, 3.6-upcoming]
         exclude:
-          - target_env: uw_build
+          - dver: 7
+            target_env: osg
             osg_repo: 3.5-upcoming
-          - target_env: uw_build
+          - dver: 8
+            target_env: osg
+            osg_repo: 3.5-upcoming
+          - dver: 7
+            target_env: osg
             osg_repo: 3.6
-          - target_env: uw_build
+          - dver: 8
+            target_env: osg
+            osg_repo: 3.6
+          - dver: 7
+            target_env: osg
+            osg_repo: 3.6-upcoming
+          - dver: 8
+            target_env: osg
             osg_repo: 3.6-upcoming
     steps:
       - uses: actions/checkout@v2
