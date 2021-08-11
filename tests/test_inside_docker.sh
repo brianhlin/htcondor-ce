@@ -2,9 +2,9 @@
 
 function run_osg_tests {
     # Source repo version
-    git clone -q https://github.com/opensciencegrid/osg-test.git
+    git clone -q https://github.com/brianhlin/osg-test.git
     pushd osg-test
-    git rev-parse HEAD
+    git checkout SOFTWARE-4740.bearer_token_file
     make install
     popd
 
