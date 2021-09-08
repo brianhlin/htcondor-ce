@@ -23,3 +23,5 @@ yum localinstall -y $RPM_LOCATION/htcondor-ce-${package_version}* \
     $RPM_LOCATION/htcondor-ce-condor-* \
     $RPM_LOCATION/htcondor-ce-view-* \
     $extra_repos
+
+head /usr/share/condor-ce/condor_ce_jobmetrics
