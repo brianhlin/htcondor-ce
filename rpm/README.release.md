@@ -18,3 +18,5 @@ HTCondor-CE release and release candidate RPMs can be automatically built upon G
     trigger, uploading RPMs to `/var/tmp/ci_deploy/htcondor/` on the CI transfer host.
 1.  Speak to the HTCondor release manager and request that the builds are placed in the rc or production Yum
     repositories as appropriate.
+1.  Update the `releases.md` page for the corresponding major version in the `docs` branch, including a changelog entry
+    and removal of any bugs that have been addressed under `Known Issues`
